@@ -58,7 +58,7 @@ export const getAnimalById = (id: string) => AquaticModel.findById(id);
 export const createAquaticAnimal = (values: Record <string, any>) => new AquaticModel(values).save().then((animal) => animal.toObject());
 
 // Method for deleting an animal
-const deleteAquaticAnimalById = (id: string) => AquaticModel.findOneAndDelete({_id: id});
+export const deleteAquaticAnimalById = (id: string) => AquaticModel.findOneAndDelete({_id: id});
 
 // Method for updating an animal
-const updateAquaticAnimal = (id: string, values: Record<string, any>) => AquaticModel.findByIdAndUpdate(id, values);
+export const updateAquaticAnimal = (id: string, values: Record<string, any>) => AquaticModel.findByIdAndUpdate(id, values);
