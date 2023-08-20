@@ -14,6 +14,8 @@ import mongoose from 'mongoose';
 
 import cors from 'cors';
 
+import router from './router';
+
 // Environment variables Config
 dotenv.config();
 
@@ -46,3 +48,5 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
 
 mongoose.connection.on('error', (error: Error) => console.log(error));
+
+app.use('/', router());
