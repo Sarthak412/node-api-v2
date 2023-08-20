@@ -2,10 +2,17 @@
 import express from 'express';
 import { isAuthenticated } from '../middlewares';
 
-import { createNewAquaticAnimal, deleteAnimalById, updateAnimal } from '../controllers/aquaticAnimal';
+import { createNewAquaticAnimal, deleteAnimalById, updateAnimal, getAllAquaticAnimals, getAquaAnimalById } from '../controllers/aquaticAnimal';
 
 export default (router: express.Router) => {
+
+    // Open endpoint
+    router.get('/api/all-aqua-animals', getAllAquaticAnimals);
+
+    router.get('/api/:id', getAquaAnimalById);
+
+    // Secured endpoints
     router.post('/api/create-animal', isAuthenticated, createNewAquaticAnimal);
-    router.delete('/api/delete/:id', isAuthenticated, deleteAnimalById);
-    router.patch('/api/update/:id', isAuthenticated, updateAnimal);
+    router.delete('/api/:id', isAuthenticated, deleteAnimalById);
+    router.patch('/api/:id', isAuthenticated, updateAnimal);
 };
