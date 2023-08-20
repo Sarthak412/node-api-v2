@@ -74,9 +74,17 @@ export const updateAnimal = async (req: express.Request, res: express.Response) 
 
         const { name } = req.body;
 
+        if(!name){
+            return res.sendStatus(400);
+        }
+
         const aquaAnimal = await getAnimalById(id);
 
-        return res.status(200).json(aquaAnimal);
+        aquaAnimal.name = name;
+
+        await name.save();
+
+        return res.status(200).json(aquaAnimal).end();
 
     } catch (error) {
         console.log(error);
