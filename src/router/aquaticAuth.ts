@@ -8,7 +8,6 @@ export default (router: express.Router) => {
 
     // Open endpoint
     router.get('/api/all-aqua-animals', getAllAquaticAnimals);
-
     router.get('/api/:id', getAquaAnimalById);
 
     // Secured endpoints
