@@ -49,6 +49,33 @@ export const createNewAquaticAnimal = async (req: express.Request, res: express.
     }
 }
 
+export const updateAnimal = async (req: express.Request, res: express.Response) => {
+
+    try {
+        
+        const { id } = req.params;
+        const updateData = req.body;
+        
+        const aquaAnimal = await getAnimalById(id);
+        
+        if(!aquaAnimal){
+            return res.status(404).json({error: 'Animal not found'});
+        }
+
+        // Merge properties from updateData
+        Object.assign(aquaAnimal, updateData); 
+
+        await aquaAnimal.save();
+
+        return res.status(200).json(aquaAnimal);
+
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+
+}
+
 export const deleteAnimalById = async (req: express.Request, res: express.Response) => {
 
     try {
@@ -66,29 +93,3 @@ export const deleteAnimalById = async (req: express.Request, res: express.Respon
 
 }
 
-export const updateAnimal = async (req: express.Request, res: express.Response) => {
-
-    try {
-        
-        const { id } = req.params;
-
-        const { name } = req.body;
-
-        if(!name){
-            return res.sendStatus(400);
-        }
-
-        const aquaAnimal = await getAnimalById(id);
-
-        aquaAnimal.name = name;
-
-        await name.save();
-
-        return res.status(200).json(aquaAnimal).end();
-
-    } catch (error) {
-        console.log(error);
-        return res.sendStatus(400);
-    }
-
-}
